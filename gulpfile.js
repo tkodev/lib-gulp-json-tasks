@@ -73,6 +73,6 @@ gulp.task("watcher", function(done) {
 });
 
 // commands
-gulp.task("build", gulp.series("clean", gulp.parallel("css", "js`", "img", "assets", "root")));
+gulp.task("build", gulp.series("clean", gulp.parallel("css", "js", "img", "assets", "root")));
 gulp.task("watch", gulp.series("build", "bs", "watcher"));
 
