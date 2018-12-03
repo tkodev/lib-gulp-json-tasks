@@ -1,17 +1,18 @@
 # Facetor
 - 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON object.
-- 
+
 
 ## USAGE
 - Gulp Task Wrapper simplifies Gulpfile task creation via preset tasks included in our module. 
 	- We first supply the module with a JSON object specifying the tasks and configuration
-	- The module then takes this JSON object and depending on contents, enables certain preset tasks for Gulp.
-		- `delete` type tasks: deletes folder using `del`
+		-  `delete` type tasks: deletes folder using `del`
 		- `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
 		- `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
 		- `img` type tasks: process files using `gulp-imagemin`
 		- `copy` type tasks: process files using gulp's `gulp.src`, `gulp.dest`
 		- `bs` and `bs-reload` type tasks: creates a BrowserSync instance task and reload task, respectively.
+	- The module then takes this JSON object and depending on contents, make available certain preset tasks for Gulp.
+
 
 ### Prep - Load the module
 Let's load the module
@@ -25,9 +26,11 @@ We first supply the module with a JSON object specifying the tasks and configura
 	- Files sourced from a folder called `./private` with subdirectories `css`, `js`, `img`, `assets`
 	- Files sent to a folder called `./public`
 ```js
+// dependencies
 const gulp = require("gulp");
 const tasksWrapper = require('gulp-tasks-wrapper')
 
+// create tasks using wrapper
 tasksWrapper(gulp, {
 	"clean": {
 		type: "delete",
