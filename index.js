@@ -24,7 +24,7 @@ const uglify = require('gulp-uglify');
 const noop = require("gulp-noop");
 
 // init variables
-const whitelist = ["del", "sass", "js", "img", "copy", "bs", "bs-reload"]
+const whitelist = ["delete", "sass", "js", "img", "copy", "bs", "bs-reload"]
 
 
 // ****************************************************************************************************

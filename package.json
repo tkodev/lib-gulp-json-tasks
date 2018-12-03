@@ -1,7 +1,7 @@
 {
   "name": "gulp-task-wrapper",
   "version": "1.0.0",
-  "description": "a NPM module for catalog style faceted filtering. Processes data for sidebar checkbox filters on product catalog / listing pages.",
+  "description": "A NPM module to help build Gulp tasks using simple JSON object.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -47,6 +47,5 @@
     "gulp-uglify": "^3.0.1",
     "lodash": "^4.17.11"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

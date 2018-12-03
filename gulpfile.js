@@ -7,13 +7,14 @@
 
 // dependencies
 const gulp = require("gulp");
+const tasksWrapper = require('./index.js')
 
 
 // ****************************************************************************************************
 // Tasks - Create using wrapper
 // ****************************************************************************************************
 
-var tasks = require('./index.js')(gulp, {
+tasksWrapper(gulp, {
 	"clean": {
 		type: "delete",
 		src: "./public"
@@ -41,7 +42,7 @@ var tasks = require('./index.js')(gulp, {
 		src: `private/assets/**/*`,
 		dest: `public/assets/*`,
 	},
-	"misc": {
+	"root": {
 		type: "copy",
 		src: `private/*.*`,
 		dest: `public/*`,
@@ -56,6 +57,7 @@ var tasks = require('./index.js')(gulp, {
 	}
 })
 
+
 // ****************************************************************************************************
 // Tasks - collection
 // ****************************************************************************************************
@@ -66,11 +68,11 @@ gulp.task("watcher", function(done) {
 	gulp.watch(`private/js/**/*`				).on("all", gulp.series("js", "bs-reload"));
 	gulp.watch(`private/img/**/*`				).on("all", gulp.series("img", "bs-reload"));
 	gulp.watch(`private/assets/**/*`		).on("all", gulp.series("assets", "bs-reload"));
-	gulp.watch(`private/*.*`						).on("all", gulp.series("misc", "bs-reload"));
+	gulp.watch(`private/*.*`						).on("all", gulp.series("root", "bs-reload"));
 	done();
 });
 
 // commands
-gulp.task("build", gulp.series("clean", gulp.parallel("css", "js", "img", "assets", "misc")));
+gulp.task("build", gulp.series("clean", gulp.parallel("css", "js`", "img", "assets", "root")));
 gulp.task("watch", gulp.series("build", "bs", "watcher"));
 
