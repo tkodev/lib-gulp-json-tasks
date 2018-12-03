@@ -5,7 +5,7 @@
 ## USAGE
 - Gulp Task Wrapper simplifies Gulpfile task creation via preset tasks included in our module. 
 	- We first supply the module with a JSON object specifying the tasks and configuration
-		-  `delete` type tasks: deletes folder using `del`
+		- `delete` type tasks: deletes folders using `del`
 		- `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
 		- `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
 		- `img` type tasks: process files using `gulp-imagemin`
