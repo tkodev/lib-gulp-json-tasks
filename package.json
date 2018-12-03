@@ -1,6 +1,6 @@
 {
   "name": "gulp-task-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A NPM module to help build Gulp tasks using simple JSON object.",
   "main": "index.js",
   "scripts": {
