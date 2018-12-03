@@ -17,7 +17,7 @@
 Let's load the module
 - On Node.js / CommonJS:
   - in terminal: `npm install gulp-task-wrapper`
-  - in node: `var taskWrapper = require('gulp-task-wrapper')`
+  - in node: `const taskWrapper = require('gulp-task-wrapper')`
 
 ### Step 1
 We first supply the module with a JSON object specifying the tasks and configuration
@@ -28,7 +28,7 @@ We first supply the module with a JSON object specifying the tasks and configura
 const gulp = require("gulp");
 const tasksWrapper = require('gulp-tasks-wrapper')
 
-var tasks = tasksWrapper(gulp, {
+tasksWrapper(gulp, {
 	"clean": {
 		type: "delete",
 		src: "./public"
@@ -92,7 +92,9 @@ gulp.task("build", gulp.series("clean", gulp.parallel("css", "js", "img", "asset
 gulp.task("watch", gulp.series("build", "bs", "watcher"));
 ```
 
-## To do for version 2
-- Allow options to be passed to `gulp-sass`, `post-css`, `autoprefixer`, `gulp-uglify` `imagemin`, `browserSync`, etc
+## To do for v1.1.0
 - Create "process" task, to run CLI command tasks via node's child process functions.
 	- This can allow gulp to run child node processes (scripts, express, koa servers, etc) in conjunction with BrowserSync
+
+## To do for v2.0.0
+- Allow options to be passed to `gulp-sass`, `post-css`, `autoprefixer`, `gulp-uglify` `imagemin`, `browserSync`, etc
