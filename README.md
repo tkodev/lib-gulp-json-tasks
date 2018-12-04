@@ -1,5 +1,7 @@
-# Facetor
+# Gulp Task Wrapper
 - 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON object.
+- Gulp mixes configuration with logic - leading to mixing of concerns and bloated files. 
+- Why concern yourself with gulp streams, transforms, etc when most developer needs can be fulfilled with a few lines of JSON which then makes available a few preset tasks.
 
 
 ## USAGE
@@ -19,6 +21,7 @@ Let's load the module
 - On Node.js / CommonJS:
   - in terminal: `npm install gulp-task-wrapper`
   - in node: `const taskWrapper = require('gulp-task-wrapper')`
+
 
 ### Step 1
 We first supply the module with a JSON object specifying the tasks and configuration
@@ -75,6 +78,7 @@ tasksWrapper(gulp, {
 })
 ```
 
+
 ### Step 2
 The module then takes this JSON object and depending on contents, enables certain preset tasks for Gulp.
 - EX: Since we've supplied our config, our gulp tasks are now ready to be referenced in any subsequent gulp functions!
@@ -95,9 +99,11 @@ gulp.task("build", gulp.series("clean", gulp.parallel("css", "js", "img", "asset
 gulp.task("watch", gulp.series("build", "bs", "watcher"));
 ```
 
+
 ## To do for v1.1.0
 - Create "process" task, to run CLI command tasks via node's child process functions.
 	- This can allow gulp to run child node processes (scripts, express, koa servers, etc) in conjunction with BrowserSync
+
 
 ## To do for v2.0.0
 - Allow options to be passed to `gulp-sass`, `post-css`, `autoprefixer`, `gulp-uglify` `imagemin`, `browserSync`, etc
