@@ -1,22 +1,23 @@
 # Gulp Task Wrapper
 - 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON object.
-- Gulp mixes configuration with logic - leading to mixing of concerns and bloated files. 
-- Why concern yourself with gulp streams, transforms, etc when most developer needs can be fulfilled with a few lines of JSON which then makes available a few preset tasks.
-
-
-## USAGE
 - Gulp Task Wrapper simplifies Gulpfile task creation via preset tasks included in our module. 
-	- We first supply the module with a JSON object specifying the tasks and configuration
-		- `delete` type tasks: deletes folders using `del`
-		- `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
-		- `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
-		- `img` type tasks: process files using `gulp-imagemin`
-		- `copy` type tasks: process files using gulp's `gulp.src`, `gulp.dest`
-		- `bs` and `bs-reload` type tasks: creates a BrowserSync instance task and reload task, respectively.
-	- The module then takes this JSON object and depending on contents, make available certain preset tasks for Gulp.
+- Gulp mixes configuration with logic - leading to mixing of concerns and bloated files. 
+- Why concern yourself with gulp streams, transforms, etc when most  few lines of JSON that activate preset tasks.
 
 
-### Prep - Load the module
+## Usage Summary
+- Prep: Load the module
+- Step 1: We first supply the module with a JSON object specifying the tasks and configuration
+	- `delete` type tasks: deletes folders using `del`
+	- `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
+	- `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
+	- `img` type tasks: process files using `gulp-imagemin`
+	- `copy` type tasks: process files using gulp's `gulp.src`, `gulp.dest`
+	- `bs` and `bs-reload` type tasks: creates a BrowserSync instance task and reload task, respectively.
+- Step 2: The module then takes this JSON object and depending on contents, make available certain preset tasks for Gulp.
+
+
+### Prep
 Let's load the module
 - On Node.js / CommonJS:
   - in terminal: `npm install gulp-task-wrapper`
