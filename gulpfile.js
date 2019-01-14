@@ -8,6 +8,7 @@
 // dependencies
 const gulp = require("gulp");
 const tasksWrapper = require('./index.js')
+const autoprefixer = require('autoprefixer');
 
 
 // ****************************************************************************************************
@@ -23,19 +24,26 @@ tasksWrapper(gulp, {
 		type: "sass",
 		src: `private/css/app.scss`,
 		dest: `public/css/app.css`,
-		compression: false
+		options: {
+			sass: { outputStyle: 'compressed' },
+			postcss: { enable: true, plugins: [autoprefixer()] }
+		}
 	},
 	"js": {
 		type: "js",
 		src: `private/js/*.js`,
 		dest: `public/js/app.js`,
-		compression: false
+		options: {
+			uglify: { compress: true }
+		}
 	},
 	"img": {
 		type: "img",
 		src: `private/img/**/*`,
 		dest: `public/img/*`,
-		compression: false
+		options: {
+			imagemin: { enable: false }
+		}
 	},
 	"assets": {
 		type: "copy",
@@ -49,8 +57,9 @@ tasksWrapper(gulp, {
 	},
 	"bs": {
 		type: "bs",
-		src: "./public",
-		port: 3001
+		options: { 
+			bs: { server: './public', port: 3001, open: true }
+		}
 	},
 	"bs-reload": {
 		type: "bs-reload"

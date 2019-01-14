@@ -99,12 +99,3 @@ gulp.task("watcher", function(done) {
 gulp.task("build", gulp.series("clean", gulp.parallel("css", "js", "img", "assets", "root")));
 gulp.task("watch", gulp.series("build", "bs", "watcher"));
 ```
-
-
-## To do for v1.1.0
-- Create "process" task, to run CLI command tasks via node's child process functions.
-	- This can allow gulp to run child node processes (scripts, express, koa servers, etc) in conjunction with BrowserSync
-
-
-## To do for v2.0.0
-- Allow options to be passed to `gulp-sass`, `post-css`, `autoprefixer`, `gulp-uglify` `imagemin`, `browserSync`, etc
