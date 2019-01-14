@@ -1,21 +1,18 @@
 # Gulp Task Wrapper
-- 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON object.
-- Gulp Task Wrapper simplifies Gulpfile task creation via preset tasks included in our module. 
+- 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON.
 - Gulp mixes configuration with logic - leading to mixing of concerns and bloated files. 
-- Why concern yourself with gulp streams, transforms, etc when most  few lines of JSON that activate preset tasks.
-
+- Gulp Task Wrapper offers prebuilt gulp tasks that are made available through JSON config. 
 
 ## Usage Summary
 - Prep: Load the module
-- Step 1: We first supply the module with a JSON object specifying the tasks and configuration
+- Step 1: Tell the module what prebuilt tasks to make available.
 	- `delete` type tasks: deletes folders using `del`
 	- `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
 	- `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
 	- `img` type tasks: process files using `gulp-imagemin`
 	- `copy` type tasks: process files using gulp's `gulp.src`, `gulp.dest`
 	- `bs` and `bs-reload` type tasks: creates a BrowserSync instance task and reload task, respectively.
-- Step 2: The module then takes this JSON object and depending on contents, make available certain preset tasks for Gulp.
-
+- Step 2: Use these tasks in regular gulp workflow.
 
 ### Prep
 Let's load the module
@@ -25,8 +22,8 @@ Let's load the module
 
 
 ### Step 1
-We first supply the module with a JSON object specifying the tasks and configuration
-- EX: Here we're creating a css, js, img compressor and misc file copy workflow, 
+We Tell the module what prebuilt tasks to make available.
+- EX: Here we're creating a css, js, img compression, file copy and BrowserSync tasks.
 	- Files sourced from a folder called `./private` with subdirectories `css`, `js`, `img`, `assets`
 	- Files sent to a folder called `./public`
 ```js
@@ -91,9 +88,9 @@ tasksWrapper(gulp, {
 
 
 ### Step 2
-The module then takes this JSON object and depending on contents, enables certain preset tasks for Gulp.
-- EX: Since we've supplied our config, our gulp tasks are now ready to be referenced in any subsequent gulp functions!
-	- You'll notice `css`, `js`, `img`, `assets`, `root` tasks configured earlier are referenced in the following.
+Use these tasks in regular gulp workflow.
+- EX: Here we are using the tasks with gulp features such as `gulp.watch` and `gulp.parallel`.
+  - You'll notice `css`, `js`, `img`, `assets`, `root` tasks configured earlier are referenced in the following.
 ```js
 // watchers
 gulp.task("watcher", function(done) {
