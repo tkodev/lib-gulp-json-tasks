@@ -24,6 +24,7 @@ tasksWrapper(gulp, {
 		type: "sass",
 		src: `private/css/app.scss`,
 		dest: `public/css/app.css`,
+		sourcemaps: true,
 		options: {
 			sass: { outputStyle: 'compressed' },
 			postcss: { enable: true, plugins: [autoprefixer()] }
@@ -33,6 +34,7 @@ tasksWrapper(gulp, {
 		type: "js",
 		src: `private/js/*.js`,
 		dest: `public/js/app.js`,
+		sourcemaps: false,
 		options: {
 			uglify: { compress: true }
 		}
