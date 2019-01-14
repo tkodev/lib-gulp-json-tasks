@@ -1,7 +1,7 @@
 # Gulp Task Wrapper
-- 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON.
-- Gulp mixes configuration with logic - leading to mixing of concerns and bloated files. 
-- Gulp Task Wrapper offers prebuilt gulp tasks that are made available through JSON config. 
+- 🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON config.
+  - Gulp mixes configuration with logic - leading to mixing of concerns and bloated files. 
+  - Why work with streams, or write new gulp task, when most web workflows just deal with the same thing over and over.
 
 ## Usage Summary
 - Prep: Load the module
