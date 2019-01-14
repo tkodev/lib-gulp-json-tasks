@@ -30,9 +30,11 @@ We first supply the module with a JSON object specifying the tasks and configura
 	- Files sourced from a folder called `./private` with subdirectories `css`, `js`, `img`, `assets`
 	- Files sent to a folder called `./public`
 ```js
+
 // dependencies
 const gulp = require("gulp");
 const tasksWrapper = require('gulp-tasks-wrapper')
+const autoprefixer = require('autoprefixer');
 
 // create tasks using wrapper
 tasksWrapper(gulp, {
@@ -44,19 +46,26 @@ tasksWrapper(gulp, {
 		type: "sass",
 		src: `private/css/app.scss`,
 		dest: `public/css/app.css`,
-		compression: false
+		options: {
+			sass: { outputStyle: 'compressed' },
+			postcss: { enable: true, plugins: [autoprefixer()] } // pass autoprefixer plugin
+		}
 	},
 	"js": {
 		type: "js",
 		src: `private/js/*.js`,
 		dest: `public/js/app.js`,
-		compression: false
+		options: {
+			uglify: { compress: true }
+		}
 	},
 	"img": {
 		type: "img",
 		src: `private/img/**/*`,
 		dest: `public/img/*`,
-		compression: false
+		options: {
+			imagemin: { enable: true, plugins: null } // default plugins
+		}
 	},
 	"assets": {
 		type: "copy",
@@ -70,8 +79,9 @@ tasksWrapper(gulp, {
 	},
 	"bs": {
 		type: "bs",
-		src: "./public",
-		port: 3001
+		options: { 
+			bs: { server: './public', port: 3001, open: true }
+		}
 	},
 	"bs-reload": {
 		type: "bs-reload"
