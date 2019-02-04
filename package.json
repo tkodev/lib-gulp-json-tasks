@@ -1,7 +1,7 @@
 {
   "name": "gulp-task-wrapper",
   "version": "2.0.5",
-  "description": "A NPM module to help build Gulp tasks using simple JSON object.",
+  "description": "A NPM module to help build Gulp (v4.x.x) tasks using simple JSON config.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
