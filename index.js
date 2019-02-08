@@ -9,7 +9,7 @@
 const path = require('path');
 
 // dependencies
-const _ = require('lodash');
+const gulp = require("gulp");
 const del = require('del');
 const noop = require("gulp-noop");
 const plumber = require('gulp-plumber');
@@ -20,22 +20,24 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 const bs = require('browser-sync');
+const InstanceCtrl = require('instance-control')
 
+// create new controller
+let instanceCtrl = new InstanceCtrl();
 
 // ****************************************************************************************************
 // Shared Functions
 // ****************************************************************************************************
 
 // set default values
-function setTaskDefaults(task, taskKey){
+function setTaskDefaults(task){
 	task = task || {};
-	task.key = taskKey || "";
 	task.type = task.type || "";
-	task.src = task.src || "";
-	task.dest = task.dest || "";
-	task.destDir = task.dest ? path.dirname(task.dest) : "";
-	task.destName = task.dest ? path.basename(task.dest) : "";
 	task.options = task.options || {};
+	task.options.src = task.options.src || "";
+	task.options.dest = task.options.dest || "";
+	task.options.destDir = task.options.dest ? path.dirname(task.options.dest) : "";
+	task.options.destName = task.options.dest ? path.basename(task.options.dest) : "";
 	task.options.sourcemaps = task.options.sourcemaps || false;
 	task.options.sass = task.options.sass || {};
 	task.options.postcss = task.options.postcss || {};
@@ -46,6 +48,10 @@ function setTaskDefaults(task, taskKey){
 	task.options.imagemin.enable = task.options.imagemin.enable || false;
 	task.options.imagemin.plugins = task.options.imagemin.plugins || null;
 	task.options.bs = task.options.bs || {};
+	task.options.app = task.options.app || {};
+	task.options.app.cmd = task.options.app.cmd || "";
+	task.options.app.stdout = task.options.app.stdout || function(){} ;
+	task.options.app.stderr = task.options.app.stderr || function(){} ;
 	return task;
 }
 
@@ -54,86 +60,110 @@ function setTaskDefaults(task, taskKey){
 // Module Exports
 // ****************************************************************************************************
 
-// Node, CommonJS-like
-module.exports = function(gulp, tasks) {
+// taskCreator function
+module.exports = function(task) {
 
-	// create gulp tasks
-	_.forEach(tasks, function(task, taskKey){
+	// return gulp task function
+	return function(done){
 
-		// set task object default
-		task = setTaskDefaults(task, taskKey);
+		// by now, we should have `gulp`, `task` and `done` in our scope.
+		// everything we need to build gulp task actions!
+		
+		// define task defaults
+		task = setTaskDefaults(task);
 
-		// define gulp tasks
+		// define task actions
 		let gulpTasks = {
-			"delete": function(done, task){
-				return del(task.src);
+			"delete": function(){
+				return del(task.options.src);
 			},
-			"sass": function(done, task){
-				return gulp.src(task.src)
+			"sass": function(){
+				return gulp.src(task.options.src)
 					.pipe(plumber(function(msg) {
 						console.log(`[${task.key}} - error]`, msg)
 					}))
 					.pipe(task.options.sourcemaps ? sourcemaps.init() : noop())
 					.pipe(sass(task.options.sass))
 					.pipe(task.options.postcss.enable ? postcss(task.options.postcss.plugins) : noop())
-					.pipe(concat(task.destName))
+					.pipe(concat(task.options.destName))
 					.pipe(task.options.sourcemaps ? sourcemaps.write('map') : noop())
-					.pipe(gulp.dest(task.destDir))
+					.pipe(gulp.dest(task.options.destDir))
 					.pipe(bs.stream({
 						once: true
 					}))
 					.pipe(plumber.stop());
 			},
-			"js": function(done, task){
-				return gulp.src(task.src)
+			"js": function(){
+				return gulp.src(task.options.src)
 					.pipe(plumber(function(msg) {
 						console.log(`[${task.key}} - error]`, msg)
 					}))
 					.pipe(task.options.sourcemaps ? sourcemaps.init() : noop())
 					.pipe(uglify(task.options.uglify))
-					.pipe(concat(task.destName))
+					.pipe(concat(task.options.destName))
 					.pipe(task.options.sourcemaps ? sourcemaps.write('map') : noop())
-					.pipe(gulp.dest(task.destDir))
+					.pipe(gulp.dest(task.options.destDir))
 					.pipe(plumber.stop());
 			},
-			"img": function(done, task){
-				return gulp.src(task.src)
+			"img": function(){
+				return gulp.src(task.options.src)
 					.pipe(plumber(function(msg) {
 						console.log(`[${task.key}} - error]`, msg)
 					}))
 					.pipe(task.options.imagemin.enable ? imagemin(task.options.imagemin.plugins) : noop())
-					.pipe(gulp.dest(task.destDir))
+					.pipe(gulp.dest(task.options.destDir))
 					.pipe(plumber.stop());
 			},
-			"copy": function(done, task){
-				return gulp.src(task.src)
+			"copy": function(){
+				return gulp.src(task.options.src)
 					.pipe(plumber(function(msg) {
 						console.log(`[${task.key}} - error]`, msg)
 					}))
-					.pipe(gulp.dest(task.destDir))
+					.pipe(gulp.dest(task.options.destDir))
 					.pipe(plumber.stop());
 			},
-			"bs": function(done, task){
+			"bs": function(){
 				return bs(task.options.bs, done);
 			},
-			"bs-reload": function(done, task){
-				return bs.reload
+			"bs-reload": function(){
+				bs.reload();
+				done();
+			},
+			"app": function(){
+				function createProcess(options){
+					let subProcess = instanceCtrl.startInstance('bashApp', options.cmd)
+					subProcess.stdout.on('data', function(data){
+						options.stdout(done, data);
+					});
+					subProcess.stderr.on('data', function(data){
+						options.stderr(done, data);
+					});
+					subProcess.on('exit', function(code, signal){
+						done();
+					});
+				}
+				if(instanceCtrl.getInstances('bashApp').length){
+					let subProcess = instanceCtrl.getInstances('bashApp')[0];
+					subProcess.on('exit', function(code, signal){
+						createProcess(task.options.app);
+					});
+					instanceCtrl.killInstances('bashApp');
+				} else {
+					createProcess(task.options.app);
+				}
+				
 			}
 		}
 
-		// init tasks
+		// return task actions
 		if(gulpTasks.hasOwnProperty(task.type)){
-			gulp.task(task.key, function(done) {
-				return gulpTasks[task.type](done, task);
-			});
+			return gulpTasks[task.type]();
 		} else {
 			console.log(`[gulp-task-wrappper - error] unsupported task type: '${task.type}'`)
+			return;
 		}
 
-	})
-
-	// return
-	return this;
+	}
 
 };
 
