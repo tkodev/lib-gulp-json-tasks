@@ -25,6 +25,7 @@ const InstanceCtrl = require('instance-control')
 // create new controller
 let instanceCtrl = new InstanceCtrl();
 
+
 // ****************************************************************************************************
 // Shared Functions
 // ****************************************************************************************************
@@ -130,28 +131,17 @@ module.exports = function(task) {
 				done();
 			},
 			"app": function(){
-				function createProcess(options){
-					let subProcess = instanceCtrl.startInstance('bashApp', options.cmd)
+				instanceCtrl.singleInstance('bashApp', task.options.app.cmd).then(function(subProcess){
 					subProcess.stdout.on('data', function(data){
-						options.stdout(done, data);
+						task.options.app.stdout(done, data);
 					});
 					subProcess.stderr.on('data', function(data){
-						options.stderr(done, data);
+						task.options.app.stderr(done, data);
 					});
 					subProcess.on('exit', function(code, signal){
 						done();
 					});
-				}
-				if(instanceCtrl.getInstances('bashApp').length){
-					let subProcess = instanceCtrl.getInstances('bashApp')[0];
-					subProcess.on('exit', function(code, signal){
-						createProcess(task.options.app);
-					});
-					instanceCtrl.killInstances('bashApp');
-				} else {
-					createProcess(task.options.app);
-				}
-				
+				})
 			}
 		}
 
