@@ -16,7 +16,7 @@
 - Step 2: Use these tasks in regular gulp workflow.
 
 ### Example Usage
-- Load the module in terminal: `npm install gulp-task-creator`
+- Load the module in terminal: `npm install gulp-json-tasks`
 - Example below: Task creation for sass, js, img compression, file copy and BrowserSync.
 	- Files are sourced from a folder called `./private` with subdirectories `css`, `js`, `img`, `assets`
 	- Files are sent to a folder called `./public`
