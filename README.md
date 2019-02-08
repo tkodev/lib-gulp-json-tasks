@@ -122,6 +122,7 @@ gulp.task("app", jsonTask({
     app: {
       cmd: 'node example-process.js',
       stdout: function(done, data){
+				console.log(data.toString().replace(/\n$/,''))
         if(data.toString().indexOf('ready') > -1){
           done();
         }
