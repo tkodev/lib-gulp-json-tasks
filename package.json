@@ -1,5 +1,5 @@
 {
-  "name": "gulp-task-wrapper",
+  "name": "gulp-json-tasks",
   "version": "3.0.0",
   "description": "A NPM module to create Gulp 4.x tasks via JSON config",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/htkoca/lib-gulp-task-wrapper.git"
+    "url": "git+https://github.com/htkoca/lib-gulp-json-tasks.git"
   },
   "keywords": [
     "gulp",
@@ -28,9 +28,9 @@
   "author": "Tony Ko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/htkoca/lib-gulp-task-wrapper/issues"
+    "url": "https://github.com/htkoca/lib-gulp-json-tasks/issues"
   },
-  "homepage": "https://github.com/htkoca/lib-gulp-task-wrapper#readme",
+  "homepage": "https://github.com/htkoca/lib-gulp-json-tasks#readme",
   "dependencies": {
     "autoprefixer": "^9.3.1",
     "browser-sync": "^2.26.3",
