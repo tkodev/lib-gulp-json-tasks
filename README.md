@@ -1,5 +1,5 @@
 # Gulp JSON Tasks
-- 🔍 Gulp JSON Tasks - A NPM module to create Gulp 4.x tasks via JSON configuration.
+- 🔍 Gulp JSON Tasks - A NPM module to create Gulp 4.x tasks via JSON config.
   - Quickly use common gulp tasks! Leverage best of config based build tool alongside Gulp's programmatic style!
   - **Not for public production! Please fork for personal use!** - This module is for @htkoca's private development.
 
