@@ -1,6 +1,6 @@
 {
   "name": "gulp-json-tasks",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "A NPM module to create Gulp 4.x tasks via JSON config",
   "main": "index.js",
   "scripts": {
