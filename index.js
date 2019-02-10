@@ -55,6 +55,7 @@ function setTaskDefaults(task){
 	task.options.app.cmd = task.options.app.cmd || "";
 	task.options.app.stdout = task.options.app.stdout || function(){} ;
 	task.options.app.stderr = task.options.app.stderr || function(){} ;
+	task.options.webpack = task.options.webpack || {};
 	return task;
 }
 
@@ -79,13 +80,6 @@ module.exports = function(task) {
 		let gulpTasks = {
 			"delete": function(){
 				return del(task.options.src);
-			},
-			"webpack": function(){
-				return gulp.src(task.options.src)
-					.pipe(webpackStream(task.options.webpack, webpack, function(err, stats) {
-						console.log(err, stats)
-					}))
-					.pipe(gulp.dest(task.options.destDir))
 			},
 			"sass": function(){
 				return gulp.src(task.options.src)
@@ -131,6 +125,13 @@ module.exports = function(task) {
 					}))
 					.pipe(gulp.dest(task.options.destDir))
 					.pipe(plumber.stop());
+			},
+			"webpack": function(){
+				return gulp.src(task.options.src)
+					.pipe(webpackStream(task.options.webpack, webpack, function(err, stats) {
+						console.log(err, stats)
+					}))
+					.pipe(gulp.dest(task.options.destDir))
 			},
 			"bs": function(){
 				return bs(task.options.bs, done);

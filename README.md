@@ -7,11 +7,11 @@
 - Prep: Load the module
 - Step 1: Create a task with `jsonTask` function, with support for the following task types.
   - `delete` type tasks: deletes folders using `del`
-  - `webpack` type tasks: process files using `webpack-stream`
   - `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
   - `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
   - `img` type tasks: process files using `gulp-imagemin`
   - `copy` type tasks: process files using gulp's `gulp.src`, `gulp.dest`
+  - `webpack` type tasks: process files using `webpack-stream`
   - `bs` and `bs-reload` type tasks: creates a BrowserSync instance task and reload task, respectively.
   - `app` and `app-reload` type tasks: creates an application instance task and restart app task, respectively.
 - Step 2: Use these tasks in regular gulp workflow.
@@ -45,13 +45,6 @@ gulp.task("delete", jsonTask({
   options: {
     src: "./public"
   }
-}));
-
-gulp.task("webpack", jsonTask({
-	type: "webpack",
-	options: {
-		// webpack config here
-	}
 }));
 
 gulp.task("css", jsonTask({
@@ -107,6 +100,15 @@ gulp.task("root", jsonTask({
     src: `private/*.*`,
     dest: `public/*`
   }
+}));
+
+gulp.task("webpack", jsonTask({
+	type: "webpack",
+	options: {
+		webpack: {
+			// webpack config here
+		}
+	}
 }));
 
 gulp.task("bs", jsonTask({

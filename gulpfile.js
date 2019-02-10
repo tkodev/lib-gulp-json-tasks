@@ -22,13 +22,6 @@ gulp.task("delete", jsonTask({
 	}
 }));
 
-gulp.task("webpack", jsonTask({
-	type: "webpack",
-	options: {
-		// webpack config here
-	}
-}));
-
 gulp.task("css", jsonTask({
 	type: "sass",
 	options: {
@@ -81,6 +74,15 @@ gulp.task("root", jsonTask({
 	options: {
 		src: `private/*.*`,
 		dest: `public/*`
+	}
+}));
+
+gulp.task("webpack", jsonTask({
+	type: "webpack",
+	options: {
+		webpack: {
+			// webpack config here
+		}
 	}
 }));
 
