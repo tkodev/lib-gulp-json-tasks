@@ -9,18 +9,20 @@
 const path = require('path');
 
 // dependencies
-const gulp = require("gulp");
+const bs = require('browser-sync');
+const concat = require('gulp-concat');
 const del = require('del');
+const gulp = require("gulp");
+const imagemin = require('gulp-imagemin');
+const InstanceCtrl = require('instance-control')
 const noop = require("gulp-noop");
 const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
-const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
-const concat = require('gulp-concat');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
-const imagemin = require('gulp-imagemin');
-const bs = require('browser-sync');
-const InstanceCtrl = require('instance-control')
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
 
 // create new controller
 let instanceCtrl = new InstanceCtrl();
@@ -77,6 +79,13 @@ module.exports = function(task) {
 		let gulpTasks = {
 			"delete": function(){
 				return del(task.options.src);
+			},
+			"webpack": function(){
+				return gulp.src(task.options.src)
+					.pipe(webpackStream(task.options.webpack, webpack, function(err, stats) {
+						console.log(err, stats)
+					}))
+					.pipe(gulp.dest(task.options.destDir))
 			},
 			"sass": function(){
 				return gulp.src(task.options.src)

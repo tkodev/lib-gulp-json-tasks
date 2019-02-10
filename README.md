@@ -7,6 +7,7 @@
 - Prep: Load the module
 - Step 1: Create a task with `jsonTask` function, with support for the following task types.
   - `delete` type tasks: deletes folders using `del`
+  - `webpack` type tasks: process files using `webpack-stream`
   - `sass` type tasks: process files using `gulp-sass`, `post-css`, `autoprefixer`, `gulp-sourcemaps`
   - `js` type tasks: process files using `gulp-concat`, `gulp-uglify`, `gulp-sourcemaps`
   - `img` type tasks: process files using `gulp-imagemin`
@@ -44,6 +45,13 @@ gulp.task("delete", jsonTask({
   options: {
     src: "./public"
   }
+}));
+
+gulp.task("webpack", jsonTask({
+	type: "webpack",
+	options: {
+		// webpack config here
+	}
 }));
 
 gulp.task("css", jsonTask({
