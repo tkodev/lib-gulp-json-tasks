@@ -23,7 +23,9 @@
     "compress",
     "task",
     "browsersync",
-    "bash"
+    "bash",
+    "webpack",
+    "bundle"
   ],
   "author": "Tony Ko",
   "license": "MIT",
