@@ -46,8 +46,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
     "instance-control": "^1.0.7",
-    "webpack": "^4.29.3",
-    "webpack-stream": "^5.2.1"
+    "webpack": "^4.29.3"
   },
   "devDependencies": {}
 }
