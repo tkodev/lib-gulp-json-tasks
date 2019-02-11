@@ -55,7 +55,8 @@ gulp.task('css', function(done){
     type: 'sass',
     options: {
       src: `private/css/app.scss`,
-      dest: `public/css/app.css`,
+      dest: `public/css`,
+      concat: `app.css`,
       sourcemaps: true,
       sass: { 
         outputStyle: 'compressed' 
@@ -73,7 +74,8 @@ gulp.task('js', function(done){
     type: 'js',
     options: {
       src: `private/js/*.js`,
-      dest: `public/js/app.js`,
+      dest: `public/js`,
+      concat: `app.js`,
       sourcemaps: false,
       uglify: { 
         compress: true 
@@ -87,7 +89,7 @@ gulp.task('img', function(done){
     type: 'img',
     options: {
       src: `private/img/**/*`,
-      dest: `public/img/*`,
+      dest: `public/img`,
       imagemin: { 
         enable: false 
       }
@@ -100,7 +102,8 @@ gulp.task('assets', function(done){
     type: 'copy',
     options: {
       src: `private/assets/**/*`,
-      dest: `public/assets/*`
+      dest: `public/assets`,
+      concat: false
     }
   });
 });
@@ -110,7 +113,8 @@ gulp.task('root', function(done){
     type: 'copy',
     options: {
       src: `private/*.{html,txt}`,
-      dest: `public/*`
+      dest: `public`,
+      concat: false
     }
   });
 });
@@ -126,7 +130,7 @@ gulp.task('webpack', function(done){
         },
         output: {
           path: path.resolve('./public'),
-          filename: 'js/bundle.js'
+          filename: 'bundle.js'
         }
       }
     }

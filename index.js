@@ -38,8 +38,7 @@ function setTaskDefaults(task){
   task.options = task.options || {};
   task.options.src = task.options.src || '';
   task.options.dest = task.options.dest || '';
-  task.options.destDir = task.options.dest ? path.dirname(task.options.dest) : '';
-  task.options.destName = task.options.dest ? path.basename(task.options.dest) : '';
+  task.options.concat = task.options.concat || '';
   task.options.sourcemaps = task.options.sourcemaps || false;
   task.options.sass = task.options.sass || {};
   task.options.postcss = task.options.postcss || {};
@@ -71,9 +70,9 @@ let gulpTasks = {
       .pipe(task.options.sourcemaps ? sourcemaps.init() : noop())
       .pipe(sass(task.options.sass))
       .pipe(task.options.postcss.enable ? postcss(task.options.postcss.plugins) : noop())
-      .pipe(concat(task.options.destName))
+      .pipe(task.options.concat ? concat(task.options.concat) : noop())
       .pipe(task.options.sourcemaps ? sourcemaps.write('map') : noop())
-      .pipe(gulp.dest(task.options.destDir))
+      .pipe(gulp.dest(task.options.dest))
       .pipe(bs.stream({
         once: true
       }))
@@ -86,9 +85,9 @@ let gulpTasks = {
       }))
       .pipe(task.options.sourcemaps ? sourcemaps.init() : noop())
       .pipe(uglify(task.options.uglify))
-      .pipe(concat(task.options.destName))
+      .pipe(task.options.concat ? concat(task.options.concat) : noop())
       .pipe(task.options.sourcemaps ? sourcemaps.write('map') : noop())
-      .pipe(gulp.dest(task.options.destDir))
+      .pipe(gulp.dest(task.options.dest))
       .pipe(plumber.stop());
   },
   'img': function(done, task){
@@ -97,7 +96,7 @@ let gulpTasks = {
         console.log(`[${task.type}} - error]`, msg);
       }))
       .pipe(task.options.imagemin.enable ? imagemin(task.options.imagemin.plugins) : noop())
-      .pipe(gulp.dest(task.options.destDir))
+      .pipe(gulp.dest(task.options.dest))
       .pipe(plumber.stop());
   },
   'copy': function(done, task){
@@ -105,7 +104,8 @@ let gulpTasks = {
       .pipe(plumber(function(msg) {
         console.log(`[${task.type}} - error]`, msg);
       }))
-      .pipe(gulp.dest(task.options.destDir))
+      .pipe(task.options.concat ? concat(task.options.concat) : noop())
+      .pipe(gulp.dest(task.options.dest))
       .pipe(plumber.stop());
   },
   'webpack': function(done, task){
