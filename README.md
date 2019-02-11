@@ -103,12 +103,12 @@ gulp.task("root", jsonTask({
 }));
 
 gulp.task("webpack", jsonTask({
-	type: "webpack",
-	options: {
-		webpack: {
-			// webpack config here
-		}
-	}
+  type: "webpack",
+  options: {
+    webpack: {
+      // webpack config here
+    }
+  }
 }));
 
 gulp.task("bs", jsonTask({
