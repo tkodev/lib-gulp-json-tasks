@@ -111,7 +111,10 @@ let gulpTasks = {
   'webpack': function(done, task){
     webpack(task.options.webpack, function (err, stats){
       if (err || stats.hasErrors()) {
-        console.error(`[${task.type} - error]`, err, stats);
+        let statsStr = stats.toString({
+          colors: true
+        })
+        console.error(`[${task.type} - error]`, statsStr);
       };
       done();
     });
