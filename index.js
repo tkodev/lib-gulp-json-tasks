@@ -65,7 +65,7 @@ let gulpTasks = {
   'sass': function(done, task){
     return gulp.src(task.options.src)
       .pipe(plumber(function(msg) {
-        console.log(`[${task.type}} - error]`, msg);
+        console.log(`[${task.type} - error]`, msg);
       }))
       .pipe(task.options.sourcemaps ? sourcemaps.init() : noop())
       .pipe(sass(task.options.sass))
@@ -81,7 +81,7 @@ let gulpTasks = {
   'js': function(done, task){
     return gulp.src(task.options.src)
       .pipe(plumber(function(msg) {
-        console.log(`[${task.type}} - error]`, msg);
+        console.log(`[${task.type} - error]`, msg);
       }))
       .pipe(task.options.sourcemaps ? sourcemaps.init() : noop())
       .pipe(uglify(task.options.uglify))
@@ -93,7 +93,7 @@ let gulpTasks = {
   'img': function(done, task){
     return gulp.src(task.options.src)
       .pipe(plumber(function(msg) {
-        console.log(`[${task.type}} - error]`, msg);
+        console.log(`[${task.type} - error]`, msg);
       }))
       .pipe(task.options.imagemin.enable ? imagemin(task.options.imagemin.plugins) : noop())
       .pipe(gulp.dest(task.options.dest))
@@ -102,7 +102,7 @@ let gulpTasks = {
   'copy': function(done, task){
     return gulp.src(task.options.src)
       .pipe(plumber(function(msg) {
-        console.log(`[${task.type}} - error]`, msg);
+        console.log(`[${task.type} - error]`, msg);
       }))
       .pipe(task.options.concat ? concat(task.options.concat) : noop())
       .pipe(gulp.dest(task.options.dest))
@@ -111,7 +111,7 @@ let gulpTasks = {
   'webpack': function(done, task){
     webpack(task.options.webpack, function (err, stats){
       if (err || stats.hasErrors()) {
-        console.error(`[${task.type}} - error]`, err, stats);
+        console.error(`[${task.type} - error]`, err, stats);
       };
       done();
     });
