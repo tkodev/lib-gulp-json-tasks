@@ -47,7 +47,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
-    "instance-control": "^1.0.7",
+    "instance-control": "^1.0.8",
     "webpack": "^4.29.3"
   },
   "devDependencies": {}
