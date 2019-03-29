@@ -32,7 +32,7 @@
 
 // dependencies
 const gulp = require('gulp');
-const jsonTask = require('./index.js');
+const jsonTask = require('gulp-json-tasks');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 
